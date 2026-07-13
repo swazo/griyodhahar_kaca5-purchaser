@@ -270,6 +270,64 @@ document.getElementById("btnSimpan").focus();
 }
 });
 });
+
+function simpan(){
+
+if(sedangMenyimpan)return;
+
+if(!confirm("Yakin ingin menyimpan data?")) return;
+
+let data=[];
+
+barang.forEach((item,index)=>{
+let jumlah=parseInt(document.getElementById("qty"+index).value)||0;
+if(jumlah>0){
+data.push({
+nama:item.nama,
+satuan:item.satuan,
+jumlah:jumlah
+});
+}
+});
+
+if(data.length===0){
+alert("Belum ada barang yang diinput.");
+return;
+}
+
+sedangMenyimpan=true;
+
+const btn=document.getElementById("btnSimpan");
+btn.disabled=true;
+btn.innerText="Menyimpan...";
+
+fetch(URL_APPS_SCRIPT,{
+method:"POST",
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+body:JSON.stringify(data)
+})
+.then(r=>r.text())
+.then(()=>{
+barang.forEach((item,index)=>{
+document.getElementById("qty"+index).value=0;
+});
+const waktu=new Date().toLocaleString("id-ID");
+document.getElementById("lastSave").innerHTML="Terakhir disimpan : "+waktu;
+document.getElementById("status").innerHTML="✔ Data berhasil disimpan.";
+})
+.catch(()=>{
+alert("Gagal menyimpan data.");
+})
+.finally(()=>{
+sedangMenyimpan=false;
+btn.disabled=false;
+btn.innerText="Simpan ke Sheets";
+});
+}
+
+  
 </script>
 </body>
 </html>
