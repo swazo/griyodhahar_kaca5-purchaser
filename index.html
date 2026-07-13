@@ -333,17 +333,26 @@ headers:{
 body:JSON.stringify(data)
 })
 .then(r=>r.text())
+
 .then(()=>{
-  
+
 barang.forEach((item,index)=>{
 document.getElementById("qty"+index).value=0;
-document.getElementById("harga"+index).value=0;
+document.getElementById("harga"+index).value="Rp0";
 });
-  
+
 const waktu=new Date().toLocaleString("id-ID");
 document.getElementById("lastSave").innerHTML="Terakhir disimpan : "+waktu;
 document.getElementById("status").innerHTML="✔ Data berhasil disimpan.";
+
+// Kembali ke atas halaman
+window.scrollTo({
+  top: 0,
+  behavior: "smooth"
+});
+
 })
+
 .catch(()=>{
 alert("Gagal menyimpan data.");
 })
