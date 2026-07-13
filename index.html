@@ -12,7 +12,12 @@ h1,h2{text-align:center;margin:5px}
 table{width:100%;border-collapse:collapse}
 th,td{border:1px solid #ddd;padding:10px;text-align:center}
 th{background:#4CAF50;color:#fff}
-input[type=number]{width:80px;padding:6px;text-align:center}
+input[type=number]{
+width:80px;
+padding:6px;
+text-align:center;
+box-sizing:border-box;
+}
 button{background:#4CAF50;color:#fff;border:none;padding:12px 25px;border-radius:6px;cursor:pointer;font-size:16px;margin-top:20px}
 button:disabled{background:#999;cursor:not-allowed}
 .status{margin-top:15px;font-weight:bold;color:green}
@@ -57,6 +62,7 @@ autocomplete="off">
 <th>Nama Barang</th>
 <th>Satuan</th>
 <th>Jumlah</th>
+<th>Harga</th>
 </tr>
 </thead>
 <tbody id="barangList"></tbody>
@@ -232,7 +238,12 @@ html+=`
 <td>${index+1}</td>
 <td>${item.nama}</td>
 <td>${item.satuan}</td>
-<td><input type="number" id="qty${index}" min="0" value="0"></td>
+<td>
+<input type="number" id="qty${index}" min="0" value="0">
+</td>
+<td>
+<input type="number" id="harga${index}" min="0" value="0">
+</td>
 </tr>`;
 });
 
