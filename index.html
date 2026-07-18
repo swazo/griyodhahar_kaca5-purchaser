@@ -36,6 +36,36 @@ outline:none;
 border-color:#4CAF50;
 box-shadow:0 0 5px rgba(76,175,80,.4);
 }
+
+.petugas-box{
+margin:15px 0;
+}
+
+.petugas-box label{
+display:block;
+font-weight:bold;
+margin-bottom:6px;
+}
+
+.petugas-input{
+width:100%;
+padding:12px 15px;
+font-size:16px;
+border:1px solid #ccc;
+border-radius:8px;
+box-sizing:border-box;
+}
+
+.petugas-input:focus{
+outline:none;
+border-color:#4CAF50;
+box-shadow:0 0 5px rgba(76,175,80,.4);
+}
+
+.petugas-input.error{
+border-color:#e74c3c;
+box-shadow:0 0 5px rgba(231,76,60,.4);
+}
 </style>
 </head>
 <body>
@@ -70,6 +100,16 @@ box-shadow:0 0 5px rgba(76,175,80,.4);
         Terakhir disimpan : -
     </div>
 
+</div>
+
+<div class="petugas-box">
+    <label for="petugas">Nama Petugas :</label>
+    <input
+    type="text"
+    id="petugas"
+    class="petugas-input"
+    placeholder="Isi nama yang input data ini"
+    autocomplete="off">
 </div>
 
 <input
@@ -363,6 +403,17 @@ function simpan(){
 
 if(sedangMenyimpan)return;
 
+const petugasInput=document.getElementById("petugas");
+const namaPetugas=petugasInput.value.trim();
+
+if(namaPetugas===""){
+petugasInput.classList.add("error");
+petugasInput.focus();
+alert("Nama petugas belum diisi.");
+return;
+}
+petugasInput.classList.remove("error");
+
 if(!confirm("Yakin ingin menyimpan data?")) return;
 
 let data=[];
@@ -379,6 +430,8 @@ if(jumlah > 0){
 data.push({
 
     divisi: document.getElementById("divisi").value,
+
+    petugas: namaPetugas,
 
     nama:item.nama,
 
